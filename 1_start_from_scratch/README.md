@@ -72,7 +72,7 @@ const App = () => {
 ReactDOM.render(<App />, document.querySelector("#root"));
 
 ```
-Depends of the version of React you use. You may rather use React 18 render function. There is a small change in render function
+Depends of the version of React you use You may rather use React 18 render function. There is a small change in syntax.
 
 ```javascript
 // Before – React 18
