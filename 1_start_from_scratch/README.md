@@ -2,7 +2,7 @@
 
 1. Create package.json file with `npm init`. Courious about that? Feel free to ask questions.
 2. Install main dapendencies: `npm install react react-dom`
-3. Then install webpack `npm install -save-dev webpack webpack-cli`
+3. Then install webpack `npm install --save-dev webpack webpack-cli`
 4. We'll need some code transpilation. Lets use webpack `npm install --save-dev babel-loader` and some presets (they are like dictionaries) `npm install --save-dev @babel/core @babel/preset-react`
 5. We can configure babel presets `in webpack.config.js` file but common way to do that is to create a separate file `.babelrc` with the content:
 
@@ -61,6 +61,7 @@ module.exports = {
 8. And the final React
 
 ```javascript
+
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -69,15 +70,17 @@ const App = () => {
 };
 
 ReactDOM.render(<App />, document.querySelector("#root"));
+
 ```
-Depends of the version of react you use. You may rather use React 18 render function
+Depends of the version of React you use. You may rather use React 18 render function. There is a small change in render function
+
 ```javascript
-// Before
+// Before – React 18
 import { render } from 'react-dom';
 const container = document.getElementById('app');
 render(<App tab="home" />, container);
 
-// After
+// After – React 18
 import { createRoot } from 'react-dom/client';
 const container = document.getElementById('app');
 const root = createRoot(container); // createRoot(container!) if you use TypeScript
@@ -85,9 +88,18 @@ root.render(<App tab="home" />);
 ```
 Further reading: https://reactjs.org/blog/2022/03/08/react-18-upgrade-guide.html#updates-to-client-rendering-apis
 
+add scripts to package.json
+
+```json
+  "scripts": {
+    "build": "webpack --mode production",
+    "start": "webpack --mode development"
+  },
+  ```
+
 9. Add typescript `npm install --save-dev typescript ts-loader @types/node @types/react @types/react-dom @types/jest`
 
-10. Add this to webpack:
+10. Add rules for typescript transpilation to webpack:
 
 ```javascript
  module: {
@@ -121,5 +133,7 @@ and compiler options in tsconfig.json
 }
 }
 ```
+
+11. Build you project with ```npm run build``` and visit ```index.html``` file
 
 
