@@ -7,9 +7,11 @@ const UseState: React.FC = (): JSX.Element => {
 
   return (
     <button
-      style={{ padding: "30px", fontSize: "26px" }}
+      style={{ padding: "30px", fontSize: "26px", background: color }}
       onClick={() => {
-        console.log("I've cliked")
+        console.log("I've cliked");
+        const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+        setColor(`#${randomColor}`);
       }}
     >
       Change color

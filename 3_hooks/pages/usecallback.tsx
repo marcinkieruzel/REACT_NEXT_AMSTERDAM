@@ -13,9 +13,9 @@ const Child: React.FC<Props> = React.memo(({ callback }): JSX.Element => {
 const Parent: React.FC = (): JSX.Element => {
   const [timer, setTimer] = useState(new Date());
 
-  const callback = () => {
+  const callback = useCallback(() => {
     return Math.pow(200, 20);
-  };
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => setTimer(new Date()), 1000);
@@ -24,10 +24,8 @@ const Parent: React.FC = (): JSX.Element => {
   }, []);
 
   useEffect(() => {
-    console.log("Looks like callback has changed somehow")
-  }, [callback])
-
-  
+    console.log("Looks like callback has changed somehow");
+  }, [callback]);
 
   return (
     <div>

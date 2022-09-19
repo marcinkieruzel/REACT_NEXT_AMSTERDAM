@@ -1,5 +1,16 @@
 import React, { useReducer } from "react";
 
+enum ActionType {
+  FACTORIAL = "FACTORIAL",
+  SQRT = "SQRT",
+  ADD = "ADD",
+  RESET = "RESET",
+}
+
+type State = {
+  result: number;
+};
+
 function factorialize(num) {
   if (num < 0) return -1;
   else if (num == 0) return 1;
@@ -10,27 +21,27 @@ function factorialize(num) {
 
 const initialValue = 1;
 
-const init = (val) => ({ result: val });
+const init = (val: number) => ({ result: val });
 
 const Usereducer: React.FC = (): JSX.Element => {
   const [state, dispatch] = useReducer(
-    (state, action) => {
-      if (action.type === "FACTORIAL") {
+    (state: State, action: { type: ActionType; payload?: any }) => {
+      if (action.type === ActionType.FACTORIAL) {
         console.log(action);
-        return { result: factorialize(state.result) };
+        return { result: factorialize(state.result) }; //
       }
 
-      if (action.type === "SQRT") {
+      if (action.type === ActionType.SQRT) {
         console.log(action);
         return { result: Math.sqrt(state.result) };
       }
 
-      if (action.type === "ADD") {
+      if (action.type === ActionType.ADD) {
         console.log(action);
         return { result: state.result + 1 };
       }
 
-      if (action.type === "RESET") {
+      if (action.type === ActionType.RESET) {
         console.log(action);
         return init(action.payload);
       }
@@ -44,11 +55,15 @@ const Usereducer: React.FC = (): JSX.Element => {
   return (
     <div>
       <h1>Result: {state.result}</h1>
-      <button onClick={() => dispatch({ type: "FACTORIAL" })}>factorial</button>
-      <button onClick={() => dispatch({ type: "ADD" })}>add</button>
-      <button onClick={() => dispatch({ type: "FACTORIAL" })}>sqrt</button>
+      <button onClick={() => dispatch({ type: ActionType.FACTORIAL })}>
+        factorial
+      </button>
+      <button onClick={() => dispatch({ type: ActionType.ADD })}>add</button>
+      <button onClick={() => dispatch({ type: ActionType.SQRT })}>sqrt</button>
       <button
-        onClick={() => dispatch({ type: "RESET", payload: initialValue })}
+        onClick={() =>
+          dispatch({ type: ActionType.RESET, payload: initialValue })
+        }
       >
         reset
       </button>
